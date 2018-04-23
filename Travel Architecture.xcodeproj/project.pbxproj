@@ -9,12 +9,15 @@
 /* Begin PBXBuildFile section */
 		EB0D89BA2083C71700C8FB40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0D89B92083C71700C8FB40 /* AppDelegate.swift */; };
 		EB0D89BC2083C71700C8FB40 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = EB0D89BB2083C71700C8FB40 /* art.scnassets */; };
-		EB0D89BE2083C71700C8FB40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0D89BD2083C71700C8FB40 /* ViewController.swift */; };
 		EB0D89C12083C71700C8FB40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB0D89BF2083C71700C8FB40 /* Main.storyboard */; };
 		EB0D89C32083C71800C8FB40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB0D89C22083C71800C8FB40 /* Assets.xcassets */; };
 		EB0D89C62083C71800C8FB40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB0D89C42083C71800C8FB40 /* LaunchScreen.storyboard */; };
 		EB0D89D12083C71900C8FB40 /* Travel_ArchitectureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0D89D02083C71900C8FB40 /* Travel_ArchitectureTests.swift */; };
 		EB0D89DC2083C71900C8FB40 /* Travel_ArchitectureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0D89DB2083C71900C8FB40 /* Travel_ArchitectureUITests.swift */; };
+		EB0D89EA2083DD0700C8FB40 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0D89E92083DD0700C8FB40 /* CameraViewController.swift */; };
+		EB0D89EC2083EFA100C8FB40 /* Architecture.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = EB0D89EB2083EFA100C8FB40 /* Architecture.mlmodel */; };
+		EB0D89EF2083F93400C8FB40 /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0D89EE2083F93400C8FB40 /* CGImagePropertyOrientation+UIImageOrientation.swift */; };
+		EB45B4EC20845C610095FCDE /* ArchitectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB45B4EB20845C610095FCDE /* ArchitectViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +41,6 @@
 		EB0D89B62083C71700C8FB40 /* Travel Architecture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Travel Architecture.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB0D89B92083C71700C8FB40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB0D89BB2083C71700C8FB40 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		EB0D89BD2083C71700C8FB40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EB0D89C02083C71700C8FB40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EB0D89C22083C71800C8FB40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB0D89C52083C71800C8FB40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +51,10 @@
 		EB0D89D72083C71900C8FB40 /* Travel ArchitectureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Travel ArchitectureUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB0D89DB2083C71900C8FB40 /* Travel_ArchitectureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Travel_ArchitectureUITests.swift; sourceTree = "<group>"; };
 		EB0D89DD2083C71900C8FB40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB0D89E92083DD0700C8FB40 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		EB0D89EB2083EFA100C8FB40 /* Architecture.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Architecture.mlmodel; sourceTree = "<group>"; };
+		EB0D89EE2083F93400C8FB40 /* CGImagePropertyOrientation+UIImageOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+UIImageOrientation.swift"; sourceTree = "<group>"; };
+		EB45B4EB20845C610095FCDE /* ArchitectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchitectViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +105,13 @@
 		EB0D89B82083C71700C8FB40 /* Travel Architecture */ = {
 			isa = PBXGroup;
 			children = (
+				EB0D89ED2083EFA700C8FB40 /* MLModels */,
 				EB0D89B92083C71700C8FB40 /* AppDelegate.swift */,
 				EB0D89BB2083C71700C8FB40 /* art.scnassets */,
-				EB0D89BD2083C71700C8FB40 /* ViewController.swift */,
 				EB0D89BF2083C71700C8FB40 /* Main.storyboard */,
+				EB45B4EB20845C610095FCDE /* ArchitectViewController.swift */,
+				EB0D89E92083DD0700C8FB40 /* CameraViewController.swift */,
+				EB0D89EE2083F93400C8FB40 /* CGImagePropertyOrientation+UIImageOrientation.swift */,
 				EB0D89C22083C71800C8FB40 /* Assets.xcassets */,
 				EB0D89C42083C71800C8FB40 /* LaunchScreen.storyboard */,
 				EB0D89C72083C71800C8FB40 /* Info.plist */,
@@ -126,6 +135,14 @@
 				EB0D89DD2083C71900C8FB40 /* Info.plist */,
 			);
 			path = "Travel ArchitectureUITests";
+			sourceTree = "<group>";
+		};
+		EB0D89ED2083EFA700C8FB40 /* MLModels */ = {
+			isa = PBXGroup;
+			children = (
+				EB0D89EB2083EFA100C8FB40 /* Architecture.mlmodel */,
+			);
+			path = MLModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,8 +277,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB0D89BE2083C71700C8FB40 /* ViewController.swift in Sources */,
+				EB0D89EF2083F93400C8FB40 /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */,
+				EB45B4EC20845C610095FCDE /* ArchitectViewController.swift in Sources */,
 				EB0D89BA2083C71700C8FB40 /* AppDelegate.swift in Sources */,
+				EB0D89EA2083DD0700C8FB40 /* CameraViewController.swift in Sources */,
+				EB0D89EC2083EFA100C8FB40 /* Architecture.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
