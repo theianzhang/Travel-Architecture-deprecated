@@ -23,10 +23,14 @@ class ArchitectViewController: UIViewController, ARSCNViewDelegate
         sceneView.delegate = self
 
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let scene = SCNScene()
         
         // Set the scene to the view
         sceneView.scene = scene
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.automaticallyUpdatesLighting = true
+        
+        addTapGestureToSceneView()
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -35,9 +39,13 @@ class ArchitectViewController: UIViewController, ARSCNViewDelegate
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
         
         // Run the view's session
         sceneView.session.run(configuration)
+        
+        // Show features
+        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
     }
     
     override func viewWillDisappear(_ animated: Bool)
@@ -54,41 +62,127 @@ class ArchitectViewController: UIViewController, ARSCNViewDelegate
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func addTapGestureToSceneView()
+    {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ArchitectViewController.addShipToSceneView(withGestureRecognizer:)))
+        sceneView.addGestureRecognizer(tapGestureRecognizer)
     }
-    */
-    
-    // MARK: - ARSCNViewDelegate
     
     /*
-     // Override to create and configure nodes for anchors added to the view's session.
-     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-     let node = SCNNode()
+     ************************************************************************************************************
      
-     return node
-     }
+     building object functions
+     
+     ************************************************************************************************************
      */
     
-    func session(_ session: ARSession, didFailWithError error: Error) {
+    @objc func addShipToSceneView(withGestureRecognizer recognizer: UIGestureRecognizer)
+    {
+        let tapLocation = recognizer.location(in: sceneView)
+        let hitTestResults = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
+        
+        guard let hitTestResult = hitTestResults.first else { return }
+        let translation = hitTestResult.worldTransform.translation
+        let x = translation.x
+        let y = translation.y
+        let z = translation.z
+        
+        guard let shipScene = SCNScene(named: "ship.scn"),
+            let shipNode = shipScene.rootNode.childNode(withName: "ship", recursively: false)
+            else { return }
+        
+        shipNode.position = SCNVector3(x,y,z)
+        sceneView.scene.rootNode.addChildNode(shipNode)
+    }
+    
+    /*
+     ************************************************************************************************************
+     
+     nodes and anchors functions
+     
+     ************************************************************************************************************
+     */
+    
+     // Override to create and configure nodes for anchors added to the view's session.
+     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor)
+     {
+        // Ensure we have detected a valid plane
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        
+        // Visualize that plane
+        let width = CGFloat(planeAnchor.extent.x)
+        let height = CGFloat(planeAnchor.extent.z)
+        let plane = SCNPlane(width: width, height: height)
+        
+        // Add blue color to make it easy
+        plane.materials.first?.diffuse.contents = UIColor.blue
+        
+        // Initialize a node
+        let planeNode = SCNNode(geometry: plane)
+        
+        // Position it
+        let x = CGFloat(planeAnchor.center.x)
+        let y = CGFloat(planeAnchor.center.y)
+        let z = CGFloat(planeAnchor.center.z)
+        planeNode.position = SCNVector3(x,y,z)
+        planeNode.eulerAngles.x = -.pi / 2
+        
+        // Add node
+        node.addChildNode(planeNode)
+        
+     }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor)
+    {
+        // 1
+        guard let planeAnchor = anchor as?  ARPlaneAnchor,
+            let planeNode = node.childNodes.first,
+            let plane = planeNode.geometry as? SCNPlane
+            else { return }
+        
+        // 2
+        let width = CGFloat(planeAnchor.extent.x)
+        let height = CGFloat(planeAnchor.extent.z)
+        plane.width = width
+        plane.height = height
+        
+        // 3
+        let x = CGFloat(planeAnchor.center.x)
+        let y = CGFloat(planeAnchor.center.y)
+        let z = CGFloat(planeAnchor.center.z)
+        planeNode.position = SCNVector3(x, y, z)
+        
+    }
+    
+    /*
+     ************************************************************************************************************
+ 
+        error handling functions
+     
+     ************************************************************************************************************
+    */
+    
+    func session(_ session: ARSession, didFailWithError error: Error)
+    {
         // Present an error message to the user
-        
     }
     
-    func sessionWasInterrupted(_ session: ARSession) {
+    func sessionWasInterrupted(_ session: ARSession)
+    {
         // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
     }
     
-    func sessionInterruptionEnded(_ session: ARSession) {
+    func sessionInterruptionEnded(_ session: ARSession)
+    {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
     }
 
+}
+
+extension matrix_float4x4
+{
+    func position() -> SCNVector3
+    {
+        return SCNVector3(columns.3.x, columns.3.y, columns.3.z)
+    }
 }
